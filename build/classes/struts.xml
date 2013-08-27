@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="10485760" /> <!-- 10 MB -->
+
+	<package name="Struts2Email" extends="struts-default">
+		<global-results>
+			<result name="error">/Error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+
+		<action name="doSendEmail" class="net.codejava.struts2.SendEmailAction"
+			method="sendEmail">
+
+			<!-- SMTP configuration -->
+			<param name="host">smtp.gmail.com</param>
+			<param name="port">587</param>
+			<param name="userName">ranabiswal@gmail.com</param>
+			<param name="password">ranarima12345</param>
+			<!-- End of SMTP configuration -->
+
+            <interceptor-ref name="fileUpload">
+       			<param name="allowedTypes">*/*</param> <!-- all file types -->
+				<param name="maximumSize">4194304</param> <!-- 4 MB -->
+  	    	</interceptor-ref>
+  	    	
+  	    	<interceptor-ref name="staticParams"/>
+  	    	<interceptor-ref name="params"/>
+			<interceptor-ref name="validation" />
+			<interceptor-ref name="workflow" />
+			<interceptor-ref name="exception"/>
+			              	    		
+			<result name="success" type="redirect">/Result.jsp</result>
+			<result name="input">/EmailForm.jsp</result>
+		</action>
+		
+		<!-- simple mail without file -->
+	  <action name="emailer" 
+         class="simple.Emailer"
+         method="execute">
+         <result name="success">/success.jsp</result>
+         <result name="error">/error1.jsp</result>
+      </action>
+      
+	</package>
+
+</struts>
