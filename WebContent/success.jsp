@@ -8,6 +8,8 @@
 <title>Email Success</title>
 </head>
 <body>
+
+<!-- hello god how are you -->
    Your email to <s:property value="to"/> was sent successfully.
 </body>
 </html>
